@@ -56,7 +56,7 @@ class InputHandle:
             end = begin + self.current_input_length
             data_slice = self.datas[begin:end, :, :, :]
             input_batch[i, :self.current_input_length, :, :, :] = data_slice
-            
+
         input_batch = input_batch.astype(self.input_data_type)
         return input_batch
 
@@ -76,9 +76,9 @@ class DataProcess:
         self.category = self.category_1 + self.category_2
         self.image_width = input_param['image_width']
 
-        self.train_person = ['01', '02', '03', '04', '05', '06', '07', '08',
-                             '09', '10', '11', '12', '13', '14', '15', '16']
-        self.test_person = ['17', '18', '19', '20', '21', '22', '23', '24', '25']
+        self.train_person = ['01'] # KS ['01', '02', '03', '04', '05', '06', '07', '08',
+                             #'09', '10', '11', '12', '13', '14', '15', '16']
+        self.test_person = ['02'] # KS ['17', '18', '19', '20', '21', '22', '23', '24', '25']
 
         self.input_param = input_param
         self.seq_len = input_param['seq_length']
@@ -118,14 +118,14 @@ class DataProcess:
             c_dir_path = os.path.join(path, c_dir)
             p_c_dir_list = os.listdir(c_dir_path)
 
-            for p_c_dir in p_c_dir_list: 
+            for p_c_dir in p_c_dir_list:
                 if p_c_dir[6:8] not in person_id:
                     continue
                 person_mark += 1
                 dir_path = os.path.join(c_dir_path, p_c_dir)
                 filelist = os.listdir(dir_path)
-                filelist.sort() 
-                for file in filelist: 
+                filelist.sort()
+                for file in filelist:
                     if file.startswith('image') == False:
                         continue
                     # print(file)
@@ -172,4 +172,3 @@ class DataProcess:
     def get_test_input_handle(self):
         test_data, test_indices = self.load_data(self.paths, mode='test')
         return InputHandle(test_data, test_indices, self.input_param)
-
