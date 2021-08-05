@@ -6,6 +6,7 @@ from skimage.metrics import structural_similarity as compare_ssim
 from core.utils import preprocess, metrics
 import lpips
 import torch
+import pdb
 
 loss_fn_alex = lpips.LPIPS(net='alex')
 
@@ -26,7 +27,8 @@ def test(model, test_input_handle, configs, itr):
     print(datetime.datetime.now().strftime('%Y-%m-%d %H:%M:%S'), 'test...')
     test_input_handle.begin(do_shuffle=False)
     res_path = os.path.join(configs.gen_frm_dir, str(itr))
-    os.mkdir(res_path)
+    if not os.path.exists(res_path): # beware, will overwrite existing
+        os.mkdir(res_path)
     avg_mse = 0
     batch_id = 0
     img_mse, ssim, psnr = [], [], []
@@ -55,7 +57,6 @@ def test(model, test_input_handle, configs, itr):
         real_input_flag[:, :configs.input_length - 1, :, :] = 1.0
 
     while (test_input_handle.no_batch_left() == False):
-        batch_id = batch_id + 1
         test_ims = test_input_handle.get_batch()
         test_dat = preprocess.reshape_patch(test_ims, configs.patch_size)
 
@@ -110,7 +111,8 @@ def test(model, test_input_handle, configs, itr):
         # save prediction examples
         if batch_id <= configs.num_save_samples:
             path = os.path.join(res_path, str(batch_id))
-            os.mkdir(path)
+            if not os.path.exists(path): # beware, will overwrite existing
+                os.mkdir(path)
             for i in range(configs.total_length):
                 name = 'gt' + str(i + 1) + '.png'
                 file_name = os.path.join(path, name)
@@ -125,6 +127,7 @@ def test(model, test_input_handle, configs, itr):
                 img_pd = np.uint8(img_pd * 255)
                 cv2.imwrite(file_name, img_pd)
         test_input_handle.next()
+        batch_id = batch_id + 1
 
     avg_mse = avg_mse / (batch_id * configs.batch_size)
     print('mse per seq: ' + str(avg_mse))

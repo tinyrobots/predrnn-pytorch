@@ -1,8 +1,9 @@
-from core.data_provider import kth_action, mnist
+from core.data_provider import kth_action, mnist, reflectionworld
 
 datasets_map = {
     'mnist': mnist,
     'action': kth_action,
+    'reflectionworld': reflectionworld,
 }
 
 
@@ -32,7 +33,7 @@ def data_provider(dataset_name, train_data_paths, valid_data_paths, batch_size,
         else:
             return test_input_handle
 
-    if dataset_name == 'action':
+    if (dataset_name == 'action') or (dataset_name == 'reflectionworld'):
         input_param = {'paths': valid_data_list,
                        'image_width': img_width,
                        'minibatch_size': batch_size,
