@@ -198,16 +198,7 @@ def test_wrapper(model):
     test_input_handle = datasets_factory.data_provider(
         args.dataset_name, args.train_data_paths, args.valid_data_paths, args.batch_size, args.img_width,
         seq_length=args.total_length, is_training=False)
-    print('run script succesfully got input handle')
     trainer.test(model, test_input_handle, args, 'test_result')
-
-# if os.path.exists(args.save_dir):
-#     shutil.rmtree(args.save_dir)
-# os.makedirs(args.save_dir)
-#
-# if os.path.exists(args.gen_frm_dir):
-#     shutil.rmtree(args.gen_frm_dir)
-# os.makedirs(args.gen_frm_dir)
 
 print('Initializing models')
 

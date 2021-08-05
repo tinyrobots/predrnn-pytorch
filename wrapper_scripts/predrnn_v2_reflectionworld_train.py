@@ -1,21 +1,21 @@
-CUDA_VISIBLE_DEVICES = ['MIG-GPU-dd12daeb-e2f9-bc44-a07b-f48afac87bdf/7/0']
+# CUDA_VISIBLE_DEVICES=MIG-GPU-dd12daeb-e2f9-bc44-a07b-f48afac87bdf/7/0
 
 from subprocess import call
 
 call(['python', '../run_predrnn.py',\
-'--is_training', '0',\
+'--is_training', '1',\
 '--device', 'cuda:0',\
 '--dataset_name', 'reflectionworld',\
-'--train_data_paths', '../../data/stopping2k/mini',\
-'--valid_data_paths', '../../data/stopping2k/mini',\
+'--train_data_paths', '../../data/stopping2k/categorised',\
+'--valid_data_paths', '../../data/stopping2k/categorised',\
 '--save_dir', '../../outputs_and_trained_networks/reflectionworld_test_20210805',\
 '--gen_frm_dir', '../../outputs_and_trained_networks/reflectionworld_test_20210805',\
-'--input_length', '5',\
-'--total_length', '10',\
+'--input_length', '10',\
+'--total_length', '20',\
 '--img_width', '128',\
 '--img_channel', '1',\
 '--model_name', 'predrnn',\
-'--pretrained_model', '../../outputs_and_trained_networks/reflectionworld_test_20210805/model.ckpt-8',\
+'--pretrained_model', '',\
 '--num_hidden', '128,128',\
 '--filter_size', '5',\
 '--stride', '1',\
@@ -33,11 +33,11 @@ call(['python', '../run_predrnn.py',\
 '--lr', '0.001',\
 '--reverse_input', '1',\
 '--batch_size', '4',\
-'--max_iterations', '8',\
-'--display_interval', '1',\
-'--test_interval', '8',\
-'--snapshot_interval', '8',\
-'--num_save_samples', '2',\
+'--max_iterations', '100',\
+'--display_interval', '10',\
+'--test_interval', '100',\
+'--snapshot_interval', '100',\
+'--num_save_samples', '4',\
 '--n_gpu', '1',\
 '--visual','0',\
 '--visual_path','../../outputs_and_trained_networks/'])
