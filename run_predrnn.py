@@ -162,6 +162,7 @@ def schedule_sampling(eta, itr):
 
 
 def train_wrapper(model):
+    loss_log = []
     if args.pretrained_model:
         model.load(args.pretrained_model)
     # load data
@@ -182,7 +183,9 @@ def train_wrapper(model):
         else:
             eta, real_input_flag = schedule_sampling(eta, itr)
 
-        trainer.train(model, ims, real_input_flag, args, itr)
+        cost = trainer.train(model, ims, real_input_flag, args, itr)
+        if itr % args.display_interval == 0:
+            loss_log.append(cost)
 
         if itr % args.snapshot_interval == 0:
             model.save(itr)
@@ -191,6 +194,8 @@ def train_wrapper(model):
             trainer.test(model, test_input_handle, args, itr)
 
         train_input_handle.next()
+
+    np.savetxt('../error_log.csv', np.array(loss_log), delimiter=',')
 
 
 def test_wrapper(model):

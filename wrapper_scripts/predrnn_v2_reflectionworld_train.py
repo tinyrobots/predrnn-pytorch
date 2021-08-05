@@ -1,4 +1,4 @@
-# CUDA_VISIBLE_DEVICES=MIG-GPU-dd12daeb-e2f9-bc44-a07b-f48afac87bdf/7/0
+# CUDA_VISIBLE_DEVICES=MIG-GPU-e9c58922-2429-6ed4-41de-46326e9f6156/3/0 (10Gb)
 
 from subprocess import call
 
@@ -32,12 +32,12 @@ call(['python', '../run_predrnn.py',\
 '--sampling_changing_rate', '0.00002',\
 '--lr', '0.001',\
 '--reverse_input', '1',\
-'--batch_size', '4',\
-'--max_iterations', '100',\
-'--display_interval', '10',\
-'--test_interval', '100',\
-'--snapshot_interval', '100',\
-'--num_save_samples', '4',\
+'--batch_size', '8',\
+'--max_iterations', '15000',\
+'--display_interval', '50',\
+'--test_interval', '1000',\
+'--snapshot_interval', '1000',\
+'--num_save_samples', '10',\
 '--n_gpu', '1',\
 '--visual','0',\
 '--visual_path','../../outputs_and_trained_networks/'])
