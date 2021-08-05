@@ -2,7 +2,6 @@ import os.path
 import datetime
 import cv2
 import numpy as np
-# from skimage.measure import compare_ssim # KS
 from skimage.metrics import structural_similarity as compare_ssim
 from core.utils import preprocess, metrics
 import lpips
