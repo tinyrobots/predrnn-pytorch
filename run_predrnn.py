@@ -202,7 +202,6 @@ def train_wrapper(model):
         train_input_handle.next()
 
     error_log = np.array([loss_log,val_log]).transpose()
-    pdb.set_trace()
     np.savetxt('{}/error_log.csv'.format(args.save_dir), error_log, delimiter=',', fmt='%f')
 
 

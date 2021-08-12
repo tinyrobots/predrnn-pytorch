@@ -8,13 +8,13 @@ call(['python', '../run_predrnn.py',\
 '--dataset_name', 'reflectionworld',\
 '--train_data_paths', '../../data/stopping2k/categorised',\
 '--valid_data_paths', '../../data/stopping2k/categorised',\
-'--save_dir', '../../outputs_and_trained_networks/reflectionworld_test_20210812',\
-'--gen_frm_dir', '../../outputs_and_trained_networks/reflectionworld_test_20210812',\
-'--input_length', '10',\
+'--save_dir', '../../outputs_and_trained_networks/stopping2k_20210812_input05',\
+'--gen_frm_dir', '../../outputs_and_trained_networks/stopping2k_20210812_input05',\
+'--input_length', '5',\
 '--total_length', '20',\
 '--img_width', '128',\
 '--img_channel', '1',\
-'--model_name', 'predrnn',\
+'--model_name', 'predrnn_memory_decoupling',\
 '--pretrained_model', '',\
 '--num_hidden', '128,128',\
 '--filter_size', '5',\
@@ -23,9 +23,9 @@ call(['python', '../run_predrnn.py',\
 '--layer_norm', '1',\
 '--decouple_beta', '0.01',\
 '--reverse_scheduled_sampling', '1',\
-'--r_sampling_step_1', '1000',\
-'--r_sampling_step_2', '5000',\
-'--r_exp_alpha', '2000',\
+'--r_sampling_step_1', '3000',\
+'--r_sampling_step_2', '6000',\
+'--r_exp_alpha', '600',\
 '--scheduled_sampling', '0',\
 '--sampling_stop_iter', '50000',\
 '--sampling_start_value', '1.0',\
@@ -33,11 +33,11 @@ call(['python', '../run_predrnn.py',\
 '--lr', '0.001',\
 '--reverse_input', '1',\
 '--batch_size', '8',\
-'--max_iterations', '100',\
-'--display_interval', '5',\
+'--max_iterations', '10001',\
+'--display_interval', '100',\
 '--test_interval', '1000',\
 '--snapshot_interval', '1000',\
-'--num_save_samples', '10',\
+'--num_save_samples', '5',\
 '--n_gpu', '1',\
 '--visual','0',\
 '--visual_path','../../outputs_and_trained_networks/'])
