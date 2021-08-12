@@ -23,6 +23,45 @@ def train(model, ims, real_input_flag, configs, itr):
         print('training loss: ' + str(cost))
     return cost
 
+def val(model, test_input_handle, configs, itr):
+    '''
+    A minimal test run that just returns MSE for a single batch of
+    images at specified data path, intended for use as quick validation
+    during training loop.
+    '''
+    test_input_handle.begin(do_shuffle=True)
+    avg_mse = 0
+    batch_id = 0
+    img_mse = []
+
+    for i in range(configs.total_length - configs.input_length):
+        img_mse.append(0)
+
+    # reverse schedule sampling
+    if configs.reverse_scheduled_sampling == 1:
+        mask_input = 1
+    else:
+        mask_input = configs.input_length
+
+    real_input_flag = np.zeros(
+        (configs.batch_size,
+         configs.total_length - mask_input - 1,
+         configs.img_width // configs.patch_size,
+         configs.img_width // configs.patch_size,
+         configs.patch_size ** 2 * configs.img_channel))
+
+    if configs.reverse_scheduled_sampling == 1:
+        real_input_flag[:, :configs.input_length - 1, :, :] = 1.0
+
+    # calculates MSE for one random batch
+    test_ims = test_input_handle.get_batch()
+    test_dat = preprocess.reshape_patch(test_ims, configs.patch_size)
+
+    img_gen, loss = model.test(test_dat, real_input_flag)
+    print('validation loss: ' + str(loss))
+    return loss
+
+
 def test(model, test_input_handle, configs, itr):
     print(datetime.datetime.now().strftime('%Y-%m-%d %H:%M:%S'), 'test...')
     test_input_handle.begin(do_shuffle=False)

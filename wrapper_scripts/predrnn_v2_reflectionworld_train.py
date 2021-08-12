@@ -8,8 +8,8 @@ call(['python', '../run_predrnn.py',\
 '--dataset_name', 'reflectionworld',\
 '--train_data_paths', '../../data/stopping2k/categorised',\
 '--valid_data_paths', '../../data/stopping2k/categorised',\
-'--save_dir', '../../outputs_and_trained_networks/reflectionworld_test_20210805',\
-'--gen_frm_dir', '../../outputs_and_trained_networks/reflectionworld_test_20210805',\
+'--save_dir', '../../outputs_and_trained_networks/reflectionworld_test_20210812',\
+'--gen_frm_dir', '../../outputs_and_trained_networks/reflectionworld_test_20210812',\
 '--input_length', '10',\
 '--total_length', '20',\
 '--img_width', '128',\
@@ -33,8 +33,8 @@ call(['python', '../run_predrnn.py',\
 '--lr', '0.001',\
 '--reverse_input', '1',\
 '--batch_size', '8',\
-'--max_iterations', '15000',\
-'--display_interval', '50',\
+'--max_iterations', '100',\
+'--display_interval', '5',\
 '--test_interval', '1000',\
 '--snapshot_interval', '1000',\
 '--num_save_samples', '10',\

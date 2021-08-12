@@ -45,5 +45,5 @@ class Model(object):
     def test(self, frames, mask):
         frames_tensor = torch.FloatTensor(frames).to(self.configs.device)
         mask_tensor = torch.FloatTensor(mask).to(self.configs.device)
-        next_frames, _ = self.network(frames_tensor, mask_tensor)
-        return next_frames.detach().cpu().numpy()
+        next_frames, loss = self.network(frames_tensor, mask_tensor)
+        return next_frames.detach().cpu().numpy(), loss.detach().cpu().numpy()

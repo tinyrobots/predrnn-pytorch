@@ -9,6 +9,7 @@ from core.data_provider import datasets_factory
 from core.models.model_factory import Model
 from core.utils import preprocess
 import core.trainer as trainer
+import pdb
 
 # -----------------------------------------------------------------------------
 parser = argparse.ArgumentParser(description='PyTorch video prediction model - PredRNN')
@@ -67,6 +68,8 @@ parser.add_argument('--visual_path', type=str, default='./decoupling_visual')
 args = parser.parse_args()
 print(args)
 
+if not os.path.exists(args.save_dir):
+    os.mkdir(args.save_dir)
 
 def reserve_schedule_sampling_exp(itr):
     if itr < args.r_sampling_step_1:
@@ -163,6 +166,7 @@ def schedule_sampling(eta, itr):
 
 def train_wrapper(model):
     loss_log = []
+    val_log = []
     if args.pretrained_model:
         model.load(args.pretrained_model)
     # load data
@@ -185,7 +189,9 @@ def train_wrapper(model):
 
         cost = trainer.train(model, ims, real_input_flag, args, itr)
         if itr % args.display_interval == 0:
+            valcost = trainer.val(model, test_input_handle, args, itr)
             loss_log.append(cost)
+            val_log.append(valcost)
 
         if itr % args.snapshot_interval == 0:
             model.save(itr)
@@ -195,7 +201,9 @@ def train_wrapper(model):
 
         train_input_handle.next()
 
-    np.savetxt('../error_log.csv', np.array(loss_log), delimiter=',')
+    error_log = np.array([loss_log,val_log]).transpose()
+    pdb.set_trace()
+    np.savetxt('{}/error_log.csv'.format(args.save_dir), error_log, delimiter=',', fmt='%f')
 
 
 def test_wrapper(model):
