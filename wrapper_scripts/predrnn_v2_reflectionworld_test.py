@@ -32,12 +32,12 @@ call(['python', '../run_predrnn.py',\
 '--sampling_changing_rate', '0.0002',\
 '--lr', '0.0005',\
 '--reverse_input', '1',\
-'--batch_size', '8',\
+'--batch_size', '1',\
 '--max_iterations', '40000',\
 '--display_interval', '10',\
 '--test_interval', '5000',\
 '--snapshot_interval', '5000',\
 '--num_save_samples', '5',\
 '--n_gpu', '1',\
-'--visual','1',\
+'--visual','0',\
 '--visual_path',''])

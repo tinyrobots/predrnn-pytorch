@@ -6,6 +6,8 @@ from core.layers.SpatioTemporalLSTMCell_memory_decoupling import SpatioTemporalL
 import torch.nn.functional as F
 from core.utils.tsne import visualization
 
+import pdb
+import numpy as np
 
 class RNN(nn.Module):
     def __init__(self, num_layers, num_hidden, configs):
@@ -95,6 +97,22 @@ class RNN(nn.Module):
                 if self.visual:
                     delta_c_visual.append(delta_c.view(delta_c.shape[0], delta_c.shape[1], -1))
                     delta_m_visual.append(delta_m.view(delta_m.shape[0], delta_m.shape[1], -1))
+
+                # save internal states as numpy arrays
+                # C = temporal memory
+                # M = spatial memory
+                # H = output of ST-LSTM unit
+
+                # TODO: place this in conditional flag
+                #       direct saving to test_results dir - can this be on HDD?
+                #       implement sensible saving over multiple batches
+                # if i==3: # to conserve space, only save layer 3 for now
+                #     batch_id = np.load('batch_id_global_var.npy') # updated from trainer.py
+                #     np.save('saved_latents/C_layer{}_batch{}_frame{}.npy'.format(i, str(batch_id).zfill(4), str(t).zfill(2)), c_t[i].cpu().detach())
+                #     np.save('saved_latents/M_layer{}_batch{}_frame{}.npy'.format(i, str(batch_id).zfill(4), str(t).zfill(2)), memory.cpu().detach())
+                #     np.save('saved_latents/H_layer{}_batch{}_frame{}.npy'.format(i, str(batch_id).zfill(4), str(t).zfill(2)), h_t[i].cpu().detach())
+
+            # pdb.set_trace() # for inspecting internal elements
 
             x_gen = self.conv_last(h_t[self.num_layers - 1])
             next_frames.append(x_gen)

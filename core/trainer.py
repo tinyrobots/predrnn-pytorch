@@ -69,9 +69,11 @@ def test(model, test_input_handle, configs, itr):
     if not os.path.exists(res_path): # beware, will overwrite existing
         os.mkdir(res_path)
     avg_mse = 0
-    batch_id = 0
     img_mse, ssim, psnr = [], [], []
     lp = []
+
+    batch_id = 0
+    np.save('batch_id_global_var.npy', batch_id) # hack so that we can access correct batch number when saving tensors
 
     for i in range(configs.total_length - configs.input_length):
         img_mse.append(0)
@@ -158,7 +160,7 @@ def test(model, test_input_handle, configs, itr):
                 img_gt = np.uint8(test_ims[0, i, :, :, :] * 255)
                 cv2.imwrite(file_name, img_gt)
             for i in range(img_gen_length):
-                name = 'pd' + str(i + 1) + '.png' # was str(i + 1 + configs.input_length) - error?
+                name = 'pd' + str(i + 1) + '.png' # was str(i + 1 + configs.input_length) - error
                 file_name = os.path.join(path, name)
                 img_pd = img_gen[0, i, :, :, :]
                 img_pd = np.maximum(img_pd, 0)
@@ -167,6 +169,7 @@ def test(model, test_input_handle, configs, itr):
                 cv2.imwrite(file_name, img_pd)
         test_input_handle.next()
         batch_id = batch_id + 1
+        np.save('batch_id_global_var.npy', batch_id) # hack so that we can access correct batch number when saving tensors
 
     avg_mse = avg_mse / (batch_id * configs.batch_size)
     print('mse per seq: ' + str(avg_mse))
