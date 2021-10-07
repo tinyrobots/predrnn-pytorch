@@ -6,11 +6,11 @@ call(['python', '../run_predrnn.py',\
 '--is_training', '1',\
 '--device', 'cuda:0',\
 '--dataset_name', 'reflectionworld',\
-'--train_data_paths', '../../data/stopping2k/categorised',\
-'--valid_data_paths', '../../data/stopping2k/categorised',\
-'--save_dir', '../../outputs_and_trained_networks/stopping2k_20210928_input10',\
-'--gen_frm_dir', '../../outputs_and_trained_networks/stopping2k_20210928_input10',\
-'--input_length', '10',\
+'--train_data_paths', '../../data/maintrain10k/categorised',\
+'--valid_data_paths', '../../data/maintrain10k/categorised',\
+'--save_dir', '../../outputs_and_trained_networks/maintrain10k_20210929_input15',\
+'--gen_frm_dir', '../../outputs_and_trained_networks/maintrain10k_20210929_input15',\
+'--input_length', '15',\
 '--total_length', '20',\
 '--img_width', '128',\
 '--img_channel', '1',\
