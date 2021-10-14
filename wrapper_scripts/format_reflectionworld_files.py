@@ -4,11 +4,11 @@ import glob
 import pandas as pd
 
 
-data_dir = '../../data/second5k/rgb'
-write_dir = '../../data/maintrain10k/categorised'
-scene_file = '../../data/second5k/scene_log.csv'
+data_dir = '../../data/generator6v3_10k/rgb'
+write_dir = '../../data/generator6v3_10k/categorised'
+scene_file = '../../data/generator6v3_10k/scene_log.csv'
 
-start_id = 5000 # to allow starting writing at a higher number than original scene ID numbers
+start_id = 0 # to allow starting writing at a higher number than original scene ID numbers
 
 scene_df = pd.read_csv(scene_file)
 
