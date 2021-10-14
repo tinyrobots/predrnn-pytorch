@@ -100,7 +100,7 @@ class RNN(nn.Module):
 
                 # save internal states as numpy arrays
                 # C = temporal memory
-                # M = spatial memory
+                # M = spatio-temporal memory
                 # H = output of ST-LSTM unit
 
                 # TODO: place this in conditional flag
