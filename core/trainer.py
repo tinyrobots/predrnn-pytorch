@@ -72,8 +72,10 @@ def test(model, test_input_handle, configs, itr):
     img_mse, ssim, psnr = [], [], []
     lp = []
 
+    # pdb.set_trace()
     batch_id = 0
-    np.save('batch_id_global_var.npy', batch_id) # hack so that we can access correct batch number when saving tensors
+    batch_count = test_input_handle.total() # start at max and decrease, because scenes are loaded in reverse order
+    np.save('batch_id_global_var.npy', batch_count) # hack so that we can access correct batch number when saving tensors
 
     for i in range(configs.total_length - configs.input_length):
         img_mse.append(0)
@@ -169,7 +171,8 @@ def test(model, test_input_handle, configs, itr):
                 cv2.imwrite(file_name, img_pd)
         test_input_handle.next()
         batch_id = batch_id + 1
-        np.save('batch_id_global_var.npy', batch_id) # hack so that we can access correct batch number when saving tensors
+        batch_count = batch_count-1
+        np.save('batch_id_global_var.npy', batch_count) # hack so that we can access correct batch number when saving tensors
 
     avg_mse = avg_mse / (batch_id * configs.batch_size)
     print('mse per seq: ' + str(avg_mse))

@@ -212,6 +212,7 @@ def test_wrapper(model):
         seq_length=args.total_length, is_training=False)
     trainer.test(model, test_input_handle, args, 'test_result')
 
+
 print('Initializing models')
 
 model = Model(args)

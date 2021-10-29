@@ -106,11 +106,11 @@ class RNN(nn.Module):
                 # TODO: place this in conditional flag
                 #       direct saving to test_results dir - can this be on HDD?
                 #       implement sensible saving over multiple batches
-                # if i==3: # to conserve space, only save layer 3 for now
-                #     batch_id = np.load('batch_id_global_var.npy') # updated from trainer.py
-                #     np.save('saved_latents/C_layer{}_batch{}_frame{}.npy'.format(i, str(batch_id).zfill(4), str(t).zfill(2)), c_t[i].cpu().detach())
-                #     np.save('saved_latents/M_layer{}_batch{}_frame{}.npy'.format(i, str(batch_id).zfill(4), str(t).zfill(2)), memory.cpu().detach())
-                #     np.save('saved_latents/H_layer{}_batch{}_frame{}.npy'.format(i, str(batch_id).zfill(4), str(t).zfill(2)), h_t[i].cpu().detach())
+                if i==2: # to conserve space, only save layer 3 for now
+                    batch_id = np.load('batch_id_global_var.npy') # updated from trainer.py
+                    np.save('saved_latents/C_layer{}_batch{}_frame{}.npy'.format(i, str(batch_id).zfill(4), str(t).zfill(2)), c_t[i].cpu().detach())
+                    np.save('saved_latents/M_layer{}_batch{}_frame{}.npy'.format(i, str(batch_id).zfill(4), str(t).zfill(2)), memory.cpu().detach())
+                    np.save('saved_latents/H_layer{}_batch{}_frame{}.npy'.format(i, str(batch_id).zfill(4), str(t).zfill(2)), h_t[i].cpu().detach())
 
             # pdb.set_trace() # for inspecting internal elements
 

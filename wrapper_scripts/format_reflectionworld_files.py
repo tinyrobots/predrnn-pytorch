@@ -3,10 +3,9 @@ import pdb
 import glob
 import pandas as pd
 
-
-data_dir = '../../data/generator6v3_10k/rgb'
-write_dir = '../../data/generator6v3_10k/categorised'
-scene_file = '../../data/generator6v3_10k/scene_log.csv'
+data_dir = '../../data/generator6v4_9.5k/rgb'
+write_dir = '../../data/generator6v4_9.5k/categorised'
+scene_file = '../../data/generator6v4_9.5k/scene_log.csv'
 
 start_id = 0 # to allow starting writing at a higher number than original scene ID numbers
 
