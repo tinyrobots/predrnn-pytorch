@@ -131,7 +131,7 @@ class DataProcess:
                 if file.startswith('rgb') == False: # assumes all rendered images begin rgb...
                     continue
                 # print(file)
-                print(os.path.join(dir_path, file))
+                # print(os.path.join(dir_path, file))
                 frame_im = Image.open(os.path.join(dir_path, file))
                 frame_np = np.array(frame_im)  # (1000, 1000) numpy array
                 # print(frame_np.shape)
