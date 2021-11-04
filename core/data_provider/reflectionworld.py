@@ -78,7 +78,7 @@ class DataProcess:
         self.image_width = input_param['image_width']
 
         self.train_scene = ['{}'.format(str(i).zfill(6)) for i in range(1,9000)]
-        self.test_scene = ['{}'.format(str(i).zfill(6)) for i in range(1,9500)]
+        self.test_scene = ['{}'.format(str(i).zfill(6)) for i in range(9000,9500)]
 
         self.input_param = input_param
         self.seq_len = input_param['seq_length']
