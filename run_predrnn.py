@@ -65,6 +65,12 @@ parser.add_argument('--n_gpu', type=int, default=1)
 parser.add_argument('--visual', type=int, default=0)
 parser.add_argument('--visual_path', type=str, default='./decoupling_visual')
 
+# options for saving latents at test time
+parser.add_argument('--saving_latents', type=int, default=0)
+parser.add_argument('--latents_dir', type=str, default='./saved_latents')
+parser.add_argument('--layers_to_save', type=int, nargs='+', default=[])
+parser.add_argument('--types_to_save', type=str, nargs='+', default=[])
+
 args = parser.parse_args()
 print(args)
 

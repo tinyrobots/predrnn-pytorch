@@ -8,16 +8,16 @@ call(['python', '../run_predrnn.py',\
 '--dataset_name', 'reflectionworld',\
 '--train_data_paths', '../../data/generator6v4_9.5k/categorised',\
 '--valid_data_paths', '../../data/generator6v4_9.5k/categorised',\
-'--save_dir', '../../outputs_and_trained_networks/generator6v4_9.5k_20211022',\
-'--gen_frm_dir', '../../outputs_and_trained_networks/generator6v4_9.5k_20211022',\
-'--input_length', '15',\
+'--save_dir', '../../outputs_and_trained_networks/generator6v4_9.5k_20211029',\
+'--gen_frm_dir', '../../outputs_and_trained_networks/generator6v4_9.5k_20211029',\
+'--input_length', '10',\
 '--total_length', '20',\
 '--img_width', '128',\
 '--img_channel', '1',\
 '--model_name', 'predrnn_memory_decoupling',\
-'--pretrained_model', '../../outputs_and_trained_networks/generator6v4_9.5k_20211022/model.ckpt-120000',\
-'--num_hidden', '128,128,128',\
-'--filter_size', '5',\
+'--pretrained_model', '../../outputs_and_trained_networks/generator6v4_9.5k_20211029/model.ckpt-120000',\
+'--num_hidden', '128,128,128,128',\
+'--filter_size', '3',\
 '--stride', '1',\
 '--patch_size', '4',\
 '--layer_norm', '0',\
@@ -40,4 +40,8 @@ call(['python', '../run_predrnn.py',\
 '--num_save_samples', '5',\
 '--n_gpu', '1',\
 '--visual','0',\
-'--visual_path','../../outputs_and_trained_networks/'])
+'--visual_path','../../outputs_and_trained_networks/',\
+'--saving_latents', '1',\
+'--latents_dir','/raid/kate/reflectionworld/saved_latents/generator6v4_9.5k_20211029/all_9500seqs_layer3_typeH',\
+'--layers_to_save', '3',\
+'--types_to_save', 'H',])

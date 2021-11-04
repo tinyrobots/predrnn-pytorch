@@ -38,7 +38,7 @@ class RNN(nn.Module):
         adapter_num_hidden = num_hidden[0]
         self.adapter = nn.Conv2d(adapter_num_hidden, adapter_num_hidden, 1, stride=1, padding=0, bias=False)
 
-    def forward(self, frames_tensor, mask_true):
+    def forward(self, frames_tensor, mask_true, saving_latents=False, latents_dir='./saved_latents', layers_to_save=[], types_to_save=[]):
         # [batch, length, height, width, channel] -> [batch, length, channel, height, width]
         frames = frames_tensor.permute(0, 1, 4, 2, 3).contiguous()
         mask_true = mask_true.permute(0, 1, 4, 2, 3).contiguous()
@@ -99,18 +99,19 @@ class RNN(nn.Module):
                     delta_m_visual.append(delta_m.view(delta_m.shape[0], delta_m.shape[1], -1))
 
                 # save internal states as numpy arrays
-                # C = temporal memory
-                # M = spatio-temporal memory
-                # H = output of ST-LSTM unit
-
-                # TODO: place this in conditional flag
-                #       direct saving to test_results dir - can this be on HDD?
-                #       implement sensible saving over multiple batches
-                # if i==2: # to conserve space, only save layer 3 for now
-                #     batch_id = np.load('batch_id_global_var.npy') # updated from trainer.py
-                #     np.save('saved_latents/C_layer{}_batch{}_frame{}.npy'.format(i, str(batch_id).zfill(4), str(t).zfill(2)), c_t[i].cpu().detach())
-                #     np.save('saved_latents/M_layer{}_batch{}_frame{}.npy'.format(i, str(batch_id).zfill(4), str(t).zfill(2)), memory.cpu().detach())
-                #     np.save('saved_latents/H_layer{}_batch{}_frame{}.npy'.format(i, str(batch_id).zfill(4), str(t).zfill(2)), h_t[i].cpu().detach())
+                # options are specified in test wrapper script
+                # 'C' = temporal memory
+                # 'M' = spatio-temporal memory
+                # 'H' = output of ST-LSTM unit
+                if saving_latents==1:
+                    batch_id = np.load('batch_id_global_var.npy') # updated from trainer.py
+                    if i in layers_to_save:
+                        if 'C' in types_to_save:
+                            np.save('{}/C_layer{}_batch{}_frame{}.npy'.format(latents_dir, i, str(batch_id).zfill(4), str(t).zfill(2)), c_t[i].cpu().detach())
+                        if 'M' in types_to_save:
+                            np.save('{}/M_layer{}_batch{}_frame{}.npy'.format(latents_dir, i, str(batch_id).zfill(4), str(t).zfill(2)), memory.cpu().detach())
+                        if 'H' in types_to_save:
+                            np.save('{}/H_layer{}_batch{}_frame{}.npy'.format(latents_dir, i, str(batch_id).zfill(4), str(t).zfill(2)), h_t[i].cpu().detach())
 
             # pdb.set_trace() # for inspecting internal elements
 
