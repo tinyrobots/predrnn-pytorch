@@ -157,12 +157,12 @@ def test(model, test_input_handle, configs, itr):
             if not os.path.exists(path): # beware, will overwrite existing
                 os.mkdir(path)
             for i in range(configs.total_length):
-                name = 'gt' + str(i + 1) + '.png'
+                name = 'gt' + str(i + 1).zfill(2) + '.png'
                 file_name = os.path.join(path, name)
                 img_gt = np.uint8(test_ims[0, i, :, :, :] * 255)
                 cv2.imwrite(file_name, img_gt)
             for i in range(img_gen_length):
-                name = 'pd' + str(i + 1) + '.png' # was str(i + 1 + configs.input_length) - error
+                name = 'pd' + str(i + 1).zfill(2) + '.png' # was str(i + 1 + configs.input_length) - error
                 file_name = os.path.join(path, name)
                 img_pd = img_gen[0, i, :, :, :]
                 img_pd = np.maximum(img_pd, 0)

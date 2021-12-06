@@ -6,12 +6,12 @@ call(['python', '../run_predrnn.py',\
 '--is_training', '0',\
 '--device', 'cuda:0',\
 '--dataset_name', 'reflectionworld',\
-'--train_data_paths', '../../data/generator6v4_9.5k/categorised',\
-'--valid_data_paths', '../../data/generator6v4_9.5k/categorised',\
+'--train_data_paths', '../../data/closer_sticky',\
+'--valid_data_paths', '../../data/closer_sticky',\
 '--save_dir', '../../outputs_and_trained_networks/generator6v4_9.5k_20211029',\
 '--gen_frm_dir', '../../outputs_and_trained_networks/generator6v4_9.5k_20211029',\
 '--input_length', '10',\
-'--total_length', '20',\
+'--total_length', '21',\
 '--img_width', '128',\
 '--img_channel', '1',\
 '--model_name', 'predrnn_memory_decoupling',\
@@ -37,11 +37,11 @@ call(['python', '../run_predrnn.py',\
 '--display_interval', '10',\
 '--test_interval', '5000',\
 '--snapshot_interval', '5000',\
-'--num_save_samples', '5',\
+'--num_save_samples', '3',\
 '--n_gpu', '1',\
 '--visual','0',\
 '--visual_path','../../outputs_and_trained_networks/',\
-'--saving_latents', '1',\
-'--latents_dir','/raid/kate/reflectionworld/saved_latents/generator6v4_9.5k_20211029/all_9500seqs_layer3_typeH',\
-'--layers_to_save', '3',\
-'--types_to_save', 'H',])
+'--saving_latents', '0',\
+'--latents_dir','/raid/kate/reflectionworld/saved_latents/generator6v4_9.5k_20211029/expt1_all_latents',\
+'--layers_to_save', '1','2','3',\
+'--types_to_save', 'H','C','M',])

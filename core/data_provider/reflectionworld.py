@@ -78,7 +78,7 @@ class DataProcess:
         self.image_width = input_param['image_width']
 
         self.train_scene = ['{}'.format(str(i).zfill(6)) for i in range(1,9000)]
-        self.test_scene = ['{}'.format(str(i).zfill(6)) for i in range(9000,9500)]
+        self.test_scene = ['{}'.format(str(i).zfill(6)) for i in range(1,100)]
 
         self.input_param = input_param
         self.seq_len = input_param['seq_length']
@@ -124,17 +124,13 @@ class DataProcess:
                 continue
             person_mark += 1
             dir_path = os.path.join(path, p_c_dir)
-            # pdb.set_trace()
             filelist = os.listdir(dir_path)
             filelist.sort()
             for file in filelist:
                 if file.startswith('rgb') == False: # assumes all rendered images begin rgb...
                     continue
-                # print(file)
-                # print(os.path.join(dir_path, file))
                 frame_im = Image.open(os.path.join(dir_path, file))
                 frame_np = np.array(frame_im)  # (1000, 1000) numpy array
-                # print(frame_np.shape)
                 frame_np = frame_np[:, :, 0] #
                 frames_np.append(frame_np)
                 frames_file_name.append(file)
@@ -148,6 +144,7 @@ class DataProcess:
             if frames_person_mark[index] == frames_person_mark[index - self.seq_len + 1]:
                 end = int(frames_file_name[index][20:26])
                 start = int(frames_file_name[index - self.seq_len + 1][20:26])
+                # pdb.set_trace()
                 # TODO: mode == 'test'
                 if end - start == self.seq_len - 1:
                     indices.append(index - self.seq_len + 1)
